@@ -8,17 +8,17 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.platform.commons.util.StringUtils;
-
 public class ReverseAsciiFileContents {
+	
 	  public static void main(String[] args) throws Exception {
-	        String inputFile = "D:/input.txt";
-	        String outputFile = "D:/reversed_output.txt";
+	        String inputFile = "resources/input.txt";
+	        String outputFile = "resources/reversed_output.txt";
 
 	        try {
-	        	List<String> lines = readFile(inputFile);
-	        	List<String> reverseLines = reverseContent(lines);
-	        	writeFile(outputFile, reverseLines);	            
+	        	ReverseAsciiFileContents asciiContents = new ReverseAsciiFileContents();
+	        	List<String> lines = asciiContents.readFile(inputFile);
+	        	List<String> reverseLines = asciiContents.reverseContent(lines);
+	        	asciiContents.writeFile(outputFile, reverseLines);	            
 	        } 
 	        catch (IOException e) {
 	        	e.printStackTrace();	        
@@ -26,13 +26,13 @@ public class ReverseAsciiFileContents {
 	       
 	    }
 	  
-	  public static List<String> readFile(String inputFile) throws IOException {
+	  public List<String> readFile(String inputFile) throws IOException {
 		  Path inputPath = Paths.get(inputFile);
           List<String> lines = Files.readAllLines(inputPath, StandardCharsets.UTF_8);
           return lines;
 	  }
 
-	public static List<String> reverseContent(List<String> contentList) throws Exception {
+	public List<String> reverseContent(List<String> contentList) throws Exception {
 		List<String> reverseContentList = new ArrayList<String>();
 		for(String content : contentList) {
 			if(!Charset.forName("US-ASCII").newEncoder().canEncode(content)) {
@@ -44,7 +44,7 @@ public class ReverseAsciiFileContents {
 		return reverseContentList;
 	}
 	
-	  public static void writeFile(String outputFile, List<String> reverseList) throws IOException {
+	  public void writeFile(String outputFile, List<String> reverseList) throws IOException {
           Path outputPath = Paths.get(outputFile);
           Files.write(outputPath, reverseList, StandardCharsets.UTF_8);
 	  }

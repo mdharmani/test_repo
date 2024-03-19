@@ -33,7 +33,8 @@ class ReverseAsciiTest {
 	void testReverseSingleContent() throws Exception {
 		List<String> content = new ArrayList<String>();
 		content.add("ABC");
-		List<String> reverseContent = ReverseAsciiFileContents.reverseContent(content);
+    	ReverseAsciiFileContents asciiContents = new ReverseAsciiFileContents();
+		List<String> reverseContent = asciiContents.reverseContent(content);
 		assertTrue(reverseContent.size() == 1 && reverseContent.contains("CBA"));		
 	}
 	
@@ -42,8 +43,8 @@ class ReverseAsciiTest {
 		List<String> content = new ArrayList<String>();
 		content.add("ABC DEF");
 		content.add("MNO");
-
-		List<String> reverseContent = ReverseAsciiFileContents.reverseContent(content);
+    	ReverseAsciiFileContents asciiContents = new ReverseAsciiFileContents();
+		List<String> reverseContent = asciiContents.reverseContent(content);
 		assertTrue(reverseContent.size() == 2 &&  reverseContent.contains("FED CBA") && reverseContent.contains("ONM"));		
 	}
 	
@@ -51,8 +52,8 @@ class ReverseAsciiTest {
 	void testReverseNonAsciiContent() throws Exception {
 		List<String> content = new ArrayList<String>();
 		content.add("é");
-
-		Throwable exception = assertThrows(Exception.class, () -> ReverseAsciiFileContents.reverseContent(content));
+    	ReverseAsciiFileContents asciiContents = new ReverseAsciiFileContents();
+		Throwable exception = assertThrows(Exception.class, () -> asciiContents.reverseContent(content));
 	    assertEquals("content is non ASCII", exception.getMessage());
 	}
 
